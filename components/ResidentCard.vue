@@ -1,15 +1,13 @@
 <template>
   <div class="resident">
-    <div class="resident__meta">
-      <div class="resident__meta-icon">Icon</div>
-      <div class="resident__meta-info">
-        <p class="suite">Suite {{ resident.suite }}</p>
-        <p class="floor">Floor {{ resident.floor }}</p>
-      </div>
-    </div>
+    <div class="resident__icon"><fa :icon="['far', 'id-card']" class="fa-2x" /></div>
     <div class="resident__name">
-      {{ fullname[0] + ',' }}<br>{{ fullname[1] }}
+      {{ resident.name }}
     </div>
+    <div class="resident__meta">      
+      <span class="floor"><fa :icon="['far', 'building']" />Floor {{ 2 }}</span>
+      <span class="suite"><fa :icon="['fas', 'house-user']" />Suite {{ 201 }}</span>
+    </div>   
   </div>
 </template>
 
@@ -18,53 +16,58 @@ export default {
   props: [
     'resident'
   ],
-  computed: {
-    fullname () {
-      let fullname = this.resident.name.split(' ')
-      return fullname      
-    }
-  },
 }
 </script>
 
 <style lang="scss">
 .resident {
-  max-width: 200px;
+  width: 100%;
   font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
   background-color: #fff;
-  box-shadow: 0 5px 10px 0 rgba(199, 199, 199, 0.25);
+  box-shadow: 0 5px 10px 0 rgba(199, 199, 199, 0.1);
   border-radius: 10px;
-  &__meta {
-    display: flex;
-    justify-content: space-between;
-    background-color: #F0F0F0;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    padding: 10px 15px;
-    &-icon {
-
-    }
-    &-info {
-      text-align: right;
-      & .suite {
-        font-weight: 400;
-        font-size: 15px;
-        color: #1D4CC6;
-      }
-      & .floor {
-        font-weight: 600;
-        font-size: 18px;
-      }
-    }
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  // Icon Styles  
+  &__icon {
+    width: 5%;
   }
+  // Name
   &__name {
-    padding: 20px 15px;
+    width: 60%;   
     font-weight: 300;
     font-size: 22px;
     color: rgba(0,0,0,0.5);
     font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
+  }   
+  // Meta Information
+  &__meta {
+    text-align: right;
+    display: flex;    
+    justify-content: flex-end;
+    width: 35%;
+    & > * {
+      margin-left: 15px;
+    }
+    & .suite {
+      font-weight: 400;
+      font-size: 1rem;
+      color: #1D4CC6;
+      & svg {
+        margin-right: 5px;
+      }
+    }
+    & .floor {
+      font-weight: 700;
+      font-size: 1rem;
+      & svg {
+        margin-right: 5px;
+      }
+    }
   }
-    
+   
 }
 
 </style>

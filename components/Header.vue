@@ -1,7 +1,8 @@
 <template>
-  <div class="header container">
-    <h1 class="header__title">Welcome to our Residences</h1>
+  <div class="header">
+    <h1 class="title">Welcome to our Residences</h1>
     <hr>
+    <InformationBar />
   </div>  
 </template>
 
@@ -13,12 +14,13 @@ export default {
 
 <style lang="scss">
 .header {
-
-  &__title {
-    font-family: 'Bitter', Arial, Helvetica, sans-serif;
-    font-weight: 300;
-    font-size: 48px;
-  }
+  padding: 25px 0;
+}
+.title {
+  font-family: 'Bitter', Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 48px;
+  width: 100%;
 }
 
 </style>

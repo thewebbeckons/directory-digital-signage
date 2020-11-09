@@ -12,8 +12,8 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Bitter:wght@300' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Bitter:wght@300;500' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700' }
     ]
   },
 
@@ -30,7 +30,21 @@ export default {
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
+    '@nuxtjs/fontawesome',
+    '@nuxtjs/moment'
   ],
+  
+  fontawesome: {
+    component: 'Fa',
+    icons: {
+      solid: [ 'faCalendar', 'faChevronDown', 'faHouseUser' ],
+      regular: [ 'faCalendarAlt', 'faIdCard', 'faClock', 'faBuilding']
+    }
+  },
+  moment: {
+    defaultLocale: 'en',
+    defaultTimezone: 'America/Toronto'
+  },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [

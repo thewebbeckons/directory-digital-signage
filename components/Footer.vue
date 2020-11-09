@@ -1,28 +1,29 @@
 <template>
-  <p class="updated">
-    <svg height="20" width="20">
-      <circle cx="10" cy="10" r="7" fill="#00CD08" />
-    </svg>
-    Updated Oct. 7th 6:15 pm
-  </p>
+  <div class="footer">
+    <UpdateStatus />
+  </div>
 </template>
 
 <script> 
 export default {
-
+  props: [ 'results' ]
 }
 </script>
 
 <style lang="scss">
-  .updated {
+  .footer {
     text-align: right;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin: 1rem;
     font-size: 14px;
-    & svg {
-      margin-right: 5px;
-    }
+    & .results {
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      & svg {
+        margin-right: 5px;
+      }
+    }    
   }
 </style> 

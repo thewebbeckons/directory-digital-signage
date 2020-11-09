@@ -1,8 +1,17 @@
 <template>
-  <div class="container">
-    <InformationBar />
-    <div class="resident-grid">
-      <ResidentCard v-for="resident in residentArray" :key="resident.id" :resident="resident" />
+  <div class="main-content">    
+    <div class="residents">
+      <h1 class="subtitle">Residents</h1>
+      <div class="residents-grid">
+        <ResidentCard v-for="resident in residents" :key="resident.id" :resident="resident" />
+      </div>
+      <div class="scroll">
+        <fa :icon="['fas', 'chevron-down']" class="fa-2x" />
+      </div>      
+    </div>
+    <div class="news-section">
+      <h1 class="subtitle">Today's News</h1>
+      <NewsCard :post="post" />
     </div>
   </div>
 </template>
@@ -11,82 +20,72 @@
 export default {  
   data () {
     return {
-      residentArray: [
-        {
-          id: 1,
-          name: 'Jamie Oliver',
-          suite: 119,
-          floor: 'A1'
-        },
-        {
-          id: 2,
-          name: 'Jennifer Stark',
-          suite: 111,
-          floor: 'A1'
-        },
-        {
-          id: 3,
-          name: 'Natasha Romanoff',
-          suite: 311,
-          floor: 'C3'
-        },
-        {
-          id: 5,
-          name: 'Anduin Wrynn',
-          suite: 201,
-          floor: 'C2'
-        },
-        {
-          id: 6,
-          name: 'Bruce Banner',
-          suite: 307,
-          floor: 'C3'
-        },
-        {
-          id: 21,
-          name: 'Charles Chandler',
-          suite: 119,
-          floor: 'A1'
-        },
-        {
-          id: 12,
-          name: 'Christoph Nord',
-          suite: 221,
-          floor: 'B2'
-        },
-        {
-          id: 13,
-          name: 'Alfred Pennyworth',
-          suite: 311,
-          floor: 'C3'
-        },
-        {
-          id: 14,
-          name: 'Bolvar Fordragon',
-          suite: 101,
-          floor: 'A1'
-        },
-        {
-          id: 15,
-          name: 'Sylvanas Windrunner',
-          suite: 212,
-          floor: 'B2'
-        },
-      ]
+      residents: [],
+      post: []
     }
+  },
+  activated() {
+    if (this.$fetchState.timestamp <= Date.now() - 60000) {
+      this.$fetch()
+    }
+  },
+  async fetch() {
+    this.residents = await fetch('https://jsonplaceholder.typicode.com/users').then(res => res.json())
+    this.post = await fetch('https://jsonplaceholder.typicode.com/posts/1').then(res => res.json())
+  },
+  methods: {
+    sendUpdate(time) {
+      this.$emit('update-time', time)
+    } 
   }
 }
 </script>
 
 <style lang="scss">
-.container {
-  margin: 0 auto;
-  max-width: 90%;
+.main-content {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  height: 100%;
 }
-.resident-grid {
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-column-gap: 30px;
-  grid-row-gap: 45px;
+.residents {
+  &-grid {
+    display:flex;
+    flex-wrap: wrap;
+    margin-right: 50px;
+    overflow-y: scroll;
+    max-height: calc(70vh - 100px);
+    margin-bottom: 25px;   
+    &::-webkit-scrollbar {
+      display:none;
+    }
+  }
+}
+.scroll {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+.subtitle {
+  font-family: 'Bitter', Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 38px;
+  width: 100%;
+  padding-bottom: 25px;
+}
+hr {  
+  width: 450px;
+  height: 4px;
+  border: none;
+  background-color: #000;
+}
+@media screen and (max-width: 1080px) and (orientation: portrait) {
+  .main-content {
+    display: block;
+  }
+  .residents-grid {
+    margin-right: 0;
+    margin-bottom: 25px;
+    max-height: calc(50vh - 71px);
+  }
 }
 </style>
